@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Order{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+
+        <form method="POST">
+
+            {{ form.csrf_token }}
+
+            {{ form.amount.label }} {{ form.amount(size=7) }}
+            {{ form.currency.label }} {{ form.currency }}
+            {{ form.product_description.label }} {{ form.product_description }}
+
+            <button type="submit" class="btn btn-default">Commit</button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+{% endblock %}

@@ -1,4 +1,6 @@
-from app_obj_for_gunicorn import app
+from random import randint
+
+from app.config import SECRET
 from utils.general import gen_hex_hash
 
 
@@ -9,10 +11,9 @@ def generate_string_for_hash(secret, **kwargs):
 
 
 def generate_sign(**params):
-    secret = app.config.get('SECRET', None)
-    return gen_hex_hash(generate_string_for_hash(secret, **params))
+    return gen_hex_hash(generate_string_for_hash(SECRET, **params))
 
 
-if __name__ == '__main__':
-    print(generate_sign(a=1, b=2))
+def get_order_id():
+    return randint(0, 10000)
 
