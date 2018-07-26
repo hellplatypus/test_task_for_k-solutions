@@ -12,8 +12,3 @@ def generate_string_for_hash(secret, **kwargs):
 
 def generate_sign(**params):
     return gen_hex_hash(generate_string_for_hash(SECRET, **params))
-
-
-def get_order_id():
-    return randint(0, 10000)
-

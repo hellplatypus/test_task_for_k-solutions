@@ -7,5 +7,5 @@ class OrdersForm(FlaskForm):
 
     amount = IntegerField('Cost', validators=[DataRequired(), NumberRange(min=0)])
     currency = SelectField('Currency', choices=[('RUB', 'RUB'), ('EUR', 'EUR'), ('USD', 'USD')])
-    product_description = TextAreaField('Description', validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[DataRequired()])
 

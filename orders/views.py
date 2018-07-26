@@ -2,16 +2,18 @@ import requests
 
 from flask import Blueprint, render_template, request
 from werkzeug.utils import redirect
+from datetime import datetime
 
 from orders.constants import CURRENCY_RUB, SHOP_ID
 from orders.forms import OrdersForm
-from orders.utils import generate_sign, get_order_id
+from orders.utils import generate_sign
+from orders.models import Order
 
 orders = Blueprint('orders', __name__)
 
 
 @orders.route('/', methods=('GET', 'POST'))
-def order():
+def make_order():
 
     form = OrdersForm()
 
@@ -33,9 +35,15 @@ def order():
                     'shop_amount': request.form.get("amount"),
                     'shop_currency': CURRENCY_RUB,
                     'shop_id': SHOP_ID,
-                    'shop_order_id': get_order_id(),
                     'payer_currency': CURRENCY_RUB
                 }
+
+                order = Order.create(currency=request_data['shop_currency'],
+                                     amount=request_data['shop_amount'],
+                                     description=request.form.get("description"),
+                                     time=datetime.now())
+
+                request_data['shop_order_id'] = order.id
 
                 request_data['sign'] = generate_sign(**request_data)
 
