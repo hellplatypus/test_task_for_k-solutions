@@ -1,6 +1,7 @@
 import requests
 
 from flask import Blueprint, render_template, request
+from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 from datetime import datetime
 
@@ -24,10 +25,12 @@ def make_order():
             currency = request.form.get("currency")
 
             if currency == 'RUB':
-                return redirect('/')
+                # todo
+                return abort(403, 'RUB is currently unavailable, please use USD')
 
             elif currency == 'EUR':
-                return redirect('/')
+                # todo
+                return abort(403, 'EUR is currently unavailable, please use USD')
 
             elif currency == 'USD':
 
